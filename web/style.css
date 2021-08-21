@@ -1,0 +1,106 @@
+.canvas {
+    display: flex;
+    position: relative;
+    width: 300px;
+    transform: translate(0,0);
+}
+
+.objembed > .compare {
+    display: flex;
+    justify-self: center;
+}
+.objembedbtnleft {
+    width: 250px;
+    height: 300px;
+}
+
+.objembedbtnright {
+    width: 250px;
+    height: 300px;
+}
+
+
+
+.innercanvas {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
+
+.objembedvideodiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.encodevideodiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.encodevideodiv2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.video1 {
+    transform: translate(-10px,0);
+}
+
+.video2 {
+    transform: translate(10px,0);
+}
+
+.encodeinput {
+    text-align: center;
+}
+
+.objembedinput {
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.body {
+    width: 800px;
+}
+
+.objembed > #title {
+    text-align: center;
+}
+
+.convencode > #title {
+    text-align: center;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#blank1 {
+    height: 10px;
+}
+#blank2 {
+    height: 70px;
+}
+#blank3 {
+    height: 50px;
+}
+
+button {
+    width: 50px;
+    border-radius: 5px; 
+    background-color: #eee; 
+    cursor: pointer; 
+    outline: none; 
+}
+
+button:active {
+    position: relative; 
+    top:2px;
+}
