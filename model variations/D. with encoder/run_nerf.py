@@ -433,7 +433,7 @@ def create_nerf(args):
             model_fine.set_weights(np.load(ft_weights_fine, allow_pickle=True))
 
         if encoder is not None:
-            ft_weights_encoder = '{}_encoder_{}'.format(
+            ft_weights_encoder = '{}encoder_{}'.format(
                 ft_weights[:-16], ft_weights[-10:])
             print('Reloading encoder from', ft_weights_encoder)
             encoder.set_weights(np.load(ft_weights_encoder, allow_pickle=True))
