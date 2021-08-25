@@ -1,0 +1,347 @@
+<html>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="backend.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <body>
+        <div class="body">
+            <div class="title">
+                <h1>
+                    MultiNeRF: Neural Radiance Field for Multiple Objects
+                </h1>
+            </div>
+            <div id="blank1"></div>
+            <div class="overall">
+                <div id="title">
+                    <h2>Overall</h2>
+                </div>
+                <div class="compare" style="display: flex;justify-self: center;">
+                    <div align="right" class="overallbtnleft" style="width: 250px; height: 300px;">
+                        <select id="selectexp">
+                            <option value="onehot">Exp 1</option>
+                            <option value="objembed">Exp 2</option>
+                            <option value="kerasembedding">Exp 3</option>
+                            <option value="convencoding">Exp 4</option>
+                        </select>
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="overallgtimg" width="300" height="300" style="border: 1px solid black;"></canvas>
+                        <script>
+                            var overallgtimgcanvas = document.getElementById('overallgtimg');
+                            var overallcontext1 = overallgtimgcanvas.getContext("2d");
+                            var overallgtimg = new Image();
+                            overallgtimg.src = "img/onehot/cube3000.png";
+                            overallgtimg.onload = function(){
+                                overallcontext1.drawImage(overallgtimg,0,0,300,300);
+                            }
+                        </script>
+                        <div class="innercanvas">
+                            <canvas id="overallmodelimg" width="0" height="300" style="border: 1px solid black;"></canvas>
+                            <script>
+                                var overallmodelimgcanvas = document.querySelector('#overallmodelimg');
+                                var overallcontext2 = overallmodelimgcanvas.getContext("2d");
+                                var overallmodelimg = new Image();
+                                overallmodelimg.src = "img/onehot/cube3000.png";
+                                overallmodelimg.onload = function(){
+                                    overallcontext2.drawImage(overallmodelimg,0,0,300,300);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div align="left" class="overallbtnright" style="width: 250px; height: 300px;">
+                        <select id="selectexp">
+                            <option value="onehot">Exp 1</option>
+                            <option value="objembed">Exp 2</option>
+                            <option value="kerasembedding">Exp 3</option>
+                            <option value="convencoding">Exp 4</option>
+                        </select>
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                </div>
+                <div class="overallinput" style="text-align: center;">
+                    <input type="range" value="0" min="0" max="300" class="slider">
+                    <script>
+                    var overallcanvas = $("#overallmodelimg");
+                    var overallslider = $(".overallinput").children(".slider")
+                    overallslider.on('input', function() {
+                        overallcanvas.attr('width',$(this).val());
+                        overallcontext2.drawImage(overallmodelimg,0,0,300,300);
+                    });
+                    </script>
+                    <select id="selectobj">
+                        <option value="cube">cube</option>
+                        <option value="greek">greek</option>
+                    </select>
+                </div>
+            </div>
+            <div class="onehot">
+                <div id="title">
+                    <h2>Experiment 1: One-hot vector</h2>
+                </div>
+                <div class="compare" style="display: flex;justify-self: center;">
+                    <div align="right" class="onehotbtnleft" style="width: 250px; height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                    <div class="canvas" >
+                        <canvas id="onehotgtimg" width="300" height="300" style="border: 1px solid black;"></canvas>
+                        <script>
+                            var onehotgtimgcanvas = document.getElementById('onehotgtimg');
+                            var onehotcontext1 = onehotgtimgcanvas.getContext("2d");
+                            var onehotgtimg = new Image();
+                            onehotgtimg.src = "img/onehot/cube3000.png";
+                            onehotgtimg.onload = function(){
+                                onehotcontext1.drawImage(onehotgtimg,0,0,300,300);
+                            }
+                        </script>
+                        <div class="innercanvas">
+                            <canvas id="onehotmodelimg" width="0" height="300" style="border: 1px solid black;"></canvas>
+                            <script>
+                                var onehotmodelimgcanvas = document.querySelector('#onehotmodelimg');
+                                var onehotcontext2 = onehotmodelimgcanvas.getContext("2d");
+                                var onehotmodelimg = new Image();
+                                onehotmodelimg.src = "img/onehot/cube3000.png";
+                                onehotmodelimg.onload = function(){
+                                    onehotcontext2.drawImage(onehotmodelimg,0,0,300,300);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div align="left" class="onehotbtnright" style="width: 250px; height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                </div>
+                <div class="onehotinput" style="text-align: center;">
+                    <input type="range" value="0" min="0" max="300" class="slider">
+                    <script>
+                    var onehotcanvas = $("#onehotmodelimg");
+                    var slider = $(".onehotinput").children(".slider")
+                    slider.on('input', function() {
+                        onehotcanvas.attr('width',$(this).val());
+                        onehotcontext2.drawImage(onehotmodelimg,0,0,300,300);
+                    });
+                    </script>
+                    <select id="selectobj">
+                        <option value="cube">cube</option>
+                        <option value="greek">greek</option>
+                    </select>
+                </div>
+            </div>
+            <div class="objembed">
+                <div id="title">
+                    <h2>Experiment 2: One-hot vector embedding</h2>
+                </div>
+                <div class="compare">
+                    <div align="right" class="objembedbtnleft">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="gtimg" width="300" height="300" style="border: 1px solid black;"></canvas>
+                        <script>
+                            var gtimgcanvas = document.getElementById('gtimg');
+                            var context1 = gtimgcanvas.getContext("2d");
+                            var gtimg = new Image();
+                            gtimg.src = "img/objembed/cube3000.png";
+                            gtimg.onload = function(){
+                                context1.drawImage(gtimg,0,0,300,300);
+                            }
+                        </script>
+                        <div class="innercanvas">
+                            <canvas id="modelimg" width="0" height="300" style="border: 1px solid black;"></canvas>
+                            <script>
+                                var modelimgcanvas = document.querySelector('#modelimg');
+                                var context2 = modelimgcanvas.getContext("2d");
+                                var modelimg = new Image();
+                                modelimg.src = "img/objembed/cube3000.png";
+                                modelimg.onload = function(){
+                                    context2.drawImage(modelimg,0,0,300,300);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div align="left" class="objembedbtnright">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                </div>
+                <div class="objembedinput">
+                    <input type="range" value="0" min="0" max="300" class="slider">
+                    <script>
+                    var canvas = $("#modelimg");
+                    var slider = $(".objembedinput").children(".slider")
+                    slider.on('input', function() {
+                        canvas.attr('width',$(this).val());
+                        context2.drawImage(modelimg,0,0,300,300);
+                    });
+                    </script>
+                    <select id="selectobj">
+                        <option value="cube">cube</option>
+                        <option value="greek">greek</option>
+                    </select>
+                </div>
+                <div id="blank2"></div>
+                <div class="objembedvideodiv">
+                    <video class="video1" src="video/cube2.mp4" autoplay muted loop style="width: 300px; height: 300px;border: 1px solid black;"></video>
+                    <video class="video2" src="video/cubebw2.mp4" autoplay muted loop style="height: 300px; width: 300px;border: 1px solid black;"></video>
+                </div>
+                <div id="blank3"></div>
+            </div>
+            <div class="kerasembedding">
+                <div id="title">
+                    <h2>Experiment 3: Keras embedding layer</h2>
+                </div>
+                <div class="compare" style="display: flex;justify-self: center;">
+                    <div align="right" class="kerasbtnleft" style="width: 250px;height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="gtimgkeras" width="300" height="300" style="border: 1px solid black;"></canvas>
+                        <script>
+                            var gtimgkerascanvas = document.getElementById('gtimgkeras');
+                            var kerascontext1 = gtimgkerascanvas.getContext("2d");
+                            var gtimgkeras = new Image();
+                            gtimgkeras.src = "img/kerasembedding/cube3000.png";
+                            gtimgkeras.onload = function(){
+                                kerascontext1.drawImage(gtimgkeras,0,0,300,300);
+                            }
+                        </script>
+                        <div class="innercanvas">
+                            <canvas id="modelimgkeras" width="0" height="300" style="border: 1px solid black;"></canvas>
+                            <script>
+                                var modelimgkerascanvas = document.querySelector('#modelimgkeras');
+                                var kerascontext2 = modelimgkerascanvas.getContext("2d");
+                                var modelimgkeras = new Image();
+                                modelimgkeras.src = "img/kerasembedding/cube3000.png";
+                                modelimgkeras.onload = function(){
+                                    kerascontext2.drawImage(modelimgkeras,0,0,300,300);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div align="left" class="kerasbtnright" style="width: 250px;height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                </div>
+                <div class="kerasinput" style="text-align: center;">
+                    <input type="range" value="0" min="0" max="300" class="slider">
+                    <script>
+                    var kerascanvas = $("#modelimgkeras");
+                    var kerasslider = $(".kerasinput").children(".slider")
+                    kerasslider.on('input', function() {
+                        kerascanvas.attr('width',$(this).val());
+                        kerascontext2.drawImage(modelimgkeras,0,0,300,300);
+                    });
+                    </script>
+                    <select id="selectobj">
+                        <option value="cube">cube</option>
+                        <option value="greek">greek</option>
+                    </select>
+                </div>
+            </div>
+            <div class="convencode">
+                <div id="title">
+                    <h2>Experiment 4: Convolutional encoding layer</h2>
+                </div>
+                <div class="compare" style="display: flex;justify-self: center;">
+                    <div align="right" class="encodebtnleft" style="width: 250px;height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="gtimgencode" width="300" height="300" style="border: 1px solid black;"></canvas>
+                        <script>
+                            var gtimgencodecanvas = document.getElementById('gtimgencode');
+                            var encodecontext1 = gtimgencodecanvas.getContext("2d");
+                            var gtimgencode = new Image();
+                            gtimgencode.src = "img/convencoding/cube3000.png";
+                            gtimgencode.onload = function(){
+                                encodecontext1.drawImage(gtimgencode,0,0,300,300);
+                            }
+                        </script>
+                        <div class="innercanvas">
+                            <canvas id="modelimgencode" width="0" height="300" style="border: 1px solid black;"></canvas>
+                            <script>
+                                var modelimgencodecanvas = document.querySelector('#modelimgencode');
+                                var encodecontext2 = modelimgencodecanvas.getContext("2d");
+                                var modelimgencode = new Image();
+                                modelimgencode.src = "img/convencoding/cube3000.png";
+                                modelimgencode.onload = function(){
+                                    encodecontext2.drawImage(modelimgencode,0,0,300,300);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div align="left" class="encodebtnright" style="width: 250px;height: 300px;">
+                        <button id="3000" style="display: block;background-color: skyblue;">3000</button>
+                        <button id="5000" style="display: block;">5000</button>
+                        <button id="10000" style="display: block;">10000</button>
+                        <button id="50000" style="display: block;">50000</button>
+                        <button id="gt" style="display: block;">GT</button>
+                    </div>
+                </div>
+                <div class="encodeinput">
+                    <input type="range" value="0" min="0" max="300" class="slider">
+                    <script>
+                    var encodecanvas = $("#modelimgencode");
+                    var encodeslider = $(".encodeinput").children(".slider")
+                    encodeslider.on('input', function() {
+                        encodecanvas.attr('width',$(this).val());
+                        encodecontext2.drawImage(modelimgencode,0,0,300,300);
+                    });
+                    </script>
+                    <select id="selectobj">
+                        <option value="cube">cube</option>
+                        <option value="greek">greek</option>
+                    </select>
+                </div>
+                <div id="blank2"></div>
+                <div class="encodevideodiv">
+                    <video class="video1" src="video/cube4.mp4" autoplay muted loop style="width: 300px; height: 300px;border: 1px solid black;"></video>
+                    <video class="video2" src="video/cubebw4.mp4" autoplay muted loop style="height: 300px; width: 300px;border: 1px solid black;"></video>
+                </div>
+                <div id="blank3"></div>
+                <div class="encodevideodiv2">
+                    <video class="video1" src="video/greek4.mp4" autoplay muted loop style="width: 300px; height: 300px;border: 1px solid black;"></video>
+                    <video class="video2" src="video/greekbw4.mp4" autoplay muted loop style="height: 300px; width: 300px;border: 1px solid black;"></video>
+                </div>
+                
+            </div>
+            <div class="encoder">
+                
+            </div>
+        </div>
+    </body>
+</html>
