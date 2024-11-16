@@ -1,4 +1,4 @@
-# MultiNeRF
+# MultiNeRF: Neural Radian Field for Multiple Objects
 Inspired by [NeRF](https://arxiv.org/abs/2003.08934)(Ben Nildenhall, Pratul P. Srinivasan, Matthew Tancik, et al.), we purpose a new model that can contain several objects.
 
 <img src="model_architecture/model_original.png">
